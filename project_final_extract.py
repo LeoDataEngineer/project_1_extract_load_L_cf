@@ -5,10 +5,10 @@ import os
 
 
 # Credenciales API
-client_id = 'eeea2fd521514498a37629a810012185'
-client_secret = '14C6598f35E2498185685Ccfc6b2b372'
-# client_id = os.environ['CLIENT_ID']
-# client_secret = os.environ['CLIENT_SECRET']
+# client_id = 'eeea2fd521514498a37629a810012185'
+# client_secret = '14C6598f35E2498185685Ccfc6b2b372'
+client_id = os.environ['CLIENT_ID']
+client_secret = os.environ['CLIENT_SECRET']
 # URLs de los endpoints
 endpoint_1 = f'https://apitransporte.buenosaires.gob.ar/ecobici/gbfs/stationInformation?client_id={client_id}&client_secret={client_secret}'
 endpoint_2 = f"https://apitransporte.buenosaires.gob.ar/ecobici/gbfs/stationStatus?client_id={client_id}&client_secret={client_secret}"
