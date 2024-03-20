@@ -4,6 +4,8 @@ from snowflake.connector.pandas_tools import write_pandas
 from datetime import datetime
 import os
 
+
+
 # Credenciales API
 #client_id = 'eeea2fd521514498a37629a810012185'
 #client_secret = '14C6598f35E2498185685Ccfc6b2b372'
@@ -15,7 +17,7 @@ endpoint_2 = f"https://apitransporte.buenosaires.gob.ar/ecobici/gbfs/stationStat
 
 ##########################################################################################################
 
-
+# Obtenemos los datos, lipieza y crear un dataframe
 def get_and_clean_df(endpoint):
     json = pd.read_json(endpoint)
     df = pd.DataFrame(json['data'][0])
@@ -50,21 +52,24 @@ def get_and_clean_df(endpoint):
 
 #############################################################################################
 
+# Creamos la conexion a la base de datos
 def conectar_snowflake():
     """Función para conectar a Snowflake"""
+    
     conn = snowflake.connector.connect(
-        user='leo',
-        password='Leomar161679',
-        account='hw55128.us-east-2.aws',
+        user=os.environ['SNOWSQL_USER'],
+        password=os.environ['SNOWSQL_PWD'],
+        account=os.environ['SNOWSQL_ACCOUNT'],
         warehouse='COMPUTE_WH',
         database='BICI',
         schema='PUBLIC'
+    
     )
     return conn
 
 ############################################################################
 
-
+# CReamos tablas en la base de datos 
 def crear_tabla_estacion(conn):
     """Crea la tabla 'estacion' si no existe"""
     cur = conn.cursor()
@@ -96,7 +101,6 @@ def crear_tabla_estacion(conn):
         cur.close()
 
 
-##################################################################################################
 
 def crear_tabla_num_bici(conn):
     """Crea la tabla 'num_bici' si no existe"""
@@ -130,7 +134,7 @@ def crear_tabla_num_bici(conn):
 
 ###################################################################################################
 
-
+# Cargamos las tablas con los datos 
 def cargar_datos_db_estacion(conn, df):
     """Carga datos desde un DataFrame de pandas a la tabla 'estacion' en Snowflake"""
     write_pandas(conn, df, 'ESTACION')
@@ -145,6 +149,7 @@ def cargar_datos_db_num_bici(conn, df):
 
 ###############################################################################################
 
+# Funcion principal donde hacemos llamado las funciones anteriores
 def main():
     conn = conectar_snowflake()
 
