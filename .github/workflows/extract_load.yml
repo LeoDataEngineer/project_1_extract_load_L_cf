@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt
       
       - name: Ejecutar script de extracción
-        run: python extract.py
+        run: python project_final_extract.py
 
       - name: Subir datos de endpoint_1
         uses: actions/upload-artifact@v2
@@ -67,7 +67,7 @@ jobs:
           name: bici_data_endpoint_2
 
       - name: Subir datos a Snowflake
-        run: python load.py
+        run: python project_final_load.py
         env:
           SNOWSQL_USER: ${{ secrets.SNOWSQL_USER }}
           SNOWSQL_PWD: ${{ secrets.SNOWSQL_PWD }}
