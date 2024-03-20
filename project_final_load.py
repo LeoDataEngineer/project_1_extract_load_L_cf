@@ -109,12 +109,20 @@ def main():
     conn = conectar_snowflake()
     
     
-    df_1 = pd.read_csv('enpoint_1.csv')
+    current_dir = os.getcwd()
+
+    # Cargar el archivo CSV desde el directorio actual
+    file_path_1 = os.path.join(current_dir, 'endpoint_1.csv')
+    
+    file_path_2 = os.path.join(current_dir, 'endpoint_2.csv')
+    
+    
+    df_1 = pd.read_csv(file_path_1)
     df_1.columns = df_1.columns.str.upper()
     
   
 
-    df_2 = pd.read_csv('enpoint_2.csv')
+    df_2 = pd.read_csv(file_path_2)
     df_2.columns = df_2.columns.str.upper()
 
     crear_tabla_estacion(conn)
