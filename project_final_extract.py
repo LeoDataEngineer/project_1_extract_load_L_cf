@@ -4,7 +4,7 @@ import os
 
 
 
-# Credenciales API
+# Credenciales API guardadas en github en sus variables de entorno
 client_id = os.environ['CLIENT_ID']
 client_secret = os.environ['CLIENT_SECRET']
 # URLs de los endpoints
