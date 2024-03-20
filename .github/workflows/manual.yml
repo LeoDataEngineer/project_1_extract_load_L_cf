@@ -1,0 +1,44 @@
+name: Extract y Lad con Python Bici
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '*/5 * * * *'  # Ejecutar cada minuto
+jobs:
+    extract:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.10' 
+                cache: 'pip' # caching pip dependencies
+            - run: pip install -r requirements.txt
+            - run: python ./extract.py
+            - name: Extrae data 
+              uses: actions/upload-artifact@v4
+              with:
+                name: bici_data_raw
+                path: bici_data_raw.csv
+   
+
+    load:
+        runs-on: ubuntu-latest
+        needs: extract
+        steps: 
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.10' 
+                cache: 'pip' # caching pip dependencies
+            - run: pip install -r requirements.txt
+            - name: Download users data from Extract Job
+              uses: actions/download-artifact@v4
+              with:
+                name: subte_data_processed
+            - name: Subir datos a snowflake
+              run: python ./scripts/load.py
+              env:
+                SNOWSQL_USER: ${{ secrets.SNOWSQL_USER }}
+                SNOWSQL_PWD: ${{ secrets.SNOWSQL_PWD }}
+                SNOWSQL_ACCOUNT: ${{ secrets.SNOWSQL_ACCOUNT }}
