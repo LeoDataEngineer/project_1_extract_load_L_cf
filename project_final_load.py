@@ -24,7 +24,7 @@ def conectar_snowflake():
 
 ############################################################################
 
-# CReamos tablas en la base de datos 
+# Ceeamos tablas en la base de datos 
 def crear_tabla_estacion(conn):
     """Crea la tabla 'estacion' si no existe"""
     cur = conn.cursor()
@@ -116,18 +116,18 @@ def main():
     
     file_path_2 = os.path.join(current_dir, 'endpoint_2.csv')
     
-    
+    # Leomos los archiv csv
     df_1 = pd.read_csv(file_path_1)
     df_1.columns = df_1.columns.str.upper()
     
-  
-
     df_2 = pd.read_csv(file_path_2)
     df_2.columns = df_2.columns.str.upper()
-
+    
+    #creamos las tablas
     crear_tabla_estacion(conn)
     crear_tabla_num_bici(conn)
-
+    
+    # Cargamos los datos a la BD
     cargar_datos_db_estacion(conn, df_1)
     cargar_datos_db_num_bici(conn, df_2)
 
