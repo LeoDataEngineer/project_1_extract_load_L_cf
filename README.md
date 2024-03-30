@@ -1,5 +1,5 @@
 # Nuevo Servicio para la Aplicación Móvil de Baecobici.com.ar. 
-# Para implementar este servicio, se requiere consumir una API que proporciona dos endpoints con la información necesaria. Los datos obtenidos se almacenarán en una instancia de base de datos en la nube para su posterior uso y todo el proceso CI/CD se usara Github Action.
+## Para implementar este servicio, se requiere consumir una API que proporciona dos endpoints con la información necesaria. Los datos obtenidos se almacenarán en una instancia de base de datos en la nube para su posterior uso y todo el proceso CI/CD se usara Github Action.
 
 Este proyecto se centra en la extracción, limpieza básica y carga de datos de dos endpoints de API en una base de datos Snowflake.
 
