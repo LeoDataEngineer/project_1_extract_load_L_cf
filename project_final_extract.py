@@ -46,12 +46,14 @@ def get_and_clean_df(endpoint):
         
     return df
 
+
+# creamos los dataframe en archivos csv
 c= 0
 endpoints =[endpoint_1, endpoint_2]
 for endpoint in endpoints:
     c += 1
     df= get_and_clean_df(endpoint)
-    file_name = f'endpoint_{c}.csv'  # Utiliza f-string para formatear el nombre del archivo
+    file_name = f'endpoint_{c}.csv'  
     df.to_csv(file_name, index=False)
 
 #############################################################################################
